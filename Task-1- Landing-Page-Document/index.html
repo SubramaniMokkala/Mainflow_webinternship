@@ -1,167 +1,89 @@
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f4f4f4;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="task1_styles.css">
+</head>
+<body>
 
-/* Header */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #333;
-    color: rgb(15, 15, 15);
-    padding: 15px 30px;
-}
+    <!-- Header Section -->
+    <header>
+        <div class="logo">SwiftWeb</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li class="dropdown">
+                    <a href="#">Features ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Fast & Secure</a></li>
+                        <li><a href="#">User-Friendly Interface</a></li>
+                        <li><a href="#">24/7 Support</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Services ▼</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Cloud Hosting</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 style="color: black;">Welcome to SwiftWeb</h1>
+        <p>Your journey to success starts here.</p>
+        <a href="#" class="cta-btn">Get Started</a>
+    </section>
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Our Features</h2>
+        <div class="feature-container">
+            <div class="feature">
+                <h3>Fast & Secure</h3>
+                <p>Experience lightning-fast performance with top-notch security to keep your data safe.</p>
+            </div>
+            <div class="feature">
+                <h3>User-Friendly Interface</h3>
+                <p>Our platform is designed with simplicity in mind, making it easy to navigate for all users.</p>
+            </div>
+            <div class="feature">
+                <h3>24/7 Support</h3>
+                <p>We provide round-the-clock assistance to ensure a seamless experience for our users.</p>
+            </div>
+        </div>
+    </section>
 
-nav ul li {
-    position: relative;
-    margin: 0 15px;
-}
+    <!-- Services Section -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-container">
+            <div class="service">
+                <h3>Web Development</h3>
+                <p>We create modern, responsive, and dynamic websites tailored to your business needs.</p>
+            </div>
+            <div class="service">
+                <h3>SEO Optimization</h3>
+                <p>Boost your online presence with our advanced SEO strategies and ranking techniques.</p>
+            </div>
+            <div class="service">
+                <h3>Cloud Hosting</h3>
+                <p>Secure and scalable cloud hosting solutions to keep your business running smoothly.</p>
+            </div>
+        </div>
+    </section>
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-    display: block;
-}
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 MyWebsite. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
 
-/* Dropdown Menu */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background: white;
-    color: black;
-    list-style: none;
-    top: 100%;
-    left: 0;
-    min-width: 150px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.dropdown-menu li a {
-    color: black;
-    padding: 10px;
-    display: block;
-    text-align: left;
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-    background: url('https://plus.unsplash.com/premium_photo-1661634993112-6a019f5cc9e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
-    color: white;
-}
-
-.hero h1 {
-    font-size: 48px;
-}
-
-.hero p {
-    font-size: 20px;
-}
-
-.cta-btn {
-    display: inline-block;
-    background: #ff5733;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-/* Features Section */
-.features {
-    text-align: center;
-    padding: 50px 20px;
-    background: white;
-}
-
-.feature-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.feature {
-    background: #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    width: 30%;
-}
-
-/* Services Section */
-.services {
-    text-align: center;
-    padding: 50px 20px;
-    background: #f8f8f8;
-}
-
-.service-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.service {
-    background: #eee;
-    padding: 20px;
-    border-radius: 10px;
-    width: 30%;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    background: #333;
-    color: white;
-    padding: 20px;
-    margin-top: 30px;
-}
-
-footer a {
-    color: #ff5733;
-    text-decoration: none;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .feature-container,
-    .service-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .feature,
-    .service {
-        width: 80%;
-    }
-}
-
+</body>
+</html>
