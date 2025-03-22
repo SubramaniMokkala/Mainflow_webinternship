@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product & Buyer Management</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+h2, h3 {
+    color: #333;
+}
+
+form {
+    background: white;
+    padding: 15px;
+    margin: 20px auto;
+    display: inline-block;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+input, button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+    </style>
+</head>
+<body>
+    <h2>Product Management</h2>
+    
+    <!-- Add Product Form -->
+    <form id="productForm">
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <input type="text" id="productCategory" placeholder="Category" required>
+        <input type="number" id="productPrice" placeholder="Price" required>
+        <input type="number" id="productQuantity" placeholder="Quantity" required>
+        <input type="text" id="productDescription" placeholder="Description">
+        <button type="submit">Add Product</button>
+    </form>
+
+    <h2>Buyer Management</h2>
+
+    <!-- Add Buyer Form -->
+    <form id="buyerForm">
+        <input type="text" id="buyerName" placeholder="Buyer Name" required>
+        <input type="email" id="buyerEmail" placeholder="Email" required>
+        <input type="text" id="buyerPhone" placeholder="Phone Number" required>
+        <input type="text" id="buyerAddress" placeholder="Address" required>
+        <button type="submit">Add Buyer</button>
+    </form>
+
+    <h3>Product List</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="productTable">
+            <!-- Product data will be loaded here -->
+        </tbody>
+    </table>
+
+    <h3>Buyer List</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="buyerTable">
+            <!-- Buyer data will be loaded here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById("productForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("productName").value;
+            const category = document.getElementById("productCategory").value;
+            const price = document.getElementById("productPrice").value;
+            const quantity = document.getElementById("productQuantity").value;
+            const description = document.getElementById("productDescription").value;
+
+            const response = await fetch("http://localhost:5000/add-product", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, category, price, quantity, description })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            loadProducts();
+        });
+
+        document.getElementById("buyerForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("buyerName").value;
+            const email = document.getElementById("buyerEmail").value;
+            const phone = document.getElementById("buyerPhone").value;
+            const address = document.getElementById("buyerAddress").value;
+
+            const response = await fetch("http://localhost:5000/add-buyer", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, address })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            loadBuyers();
+        });
+
+        async function loadProducts() {
+            const response = await fetch("http://localhost:5000/products");
+            const products = await response.json();
+            const table = document.getElementById("productTable");
+            table.innerHTML = "";
+            products.forEach(product => {
+                table.innerHTML += `<tr>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>${product.price}</td>
+                    <td>${product.quantity}</td>
+                    <td><button onclick="deleteProduct(${product.id})">Delete</button></td>
+                </tr>`;
+            });
+        }
+
+        async function loadBuyers() {
+            const response = await fetch("http://localhost:5000/buyers");
+            const buyers = await response.json();
+            const table = document.getElementById("buyerTable");
+            table.innerHTML = "";
+            buyers.forEach(buyer => {
+                table.innerHTML += `<tr>
+                    <td>${buyer.id}</td>
+                    <td>${buyer.name}</td>
+                    <td>${buyer.email}</td>
+                    <td>${buyer.phone}</td>
+                    <td>${buyer.address}</td>
+                    <td><button onclick="deleteBuyer(${buyer.id})">Delete</button></td>
+                </tr>`;
+            });
+        }
+
+        async function deleteProduct(id) {
+            const response = await fetch(`http://localhost:5000/delete-product/${id}`, { method: "DELETE" });
+            const data = await response.json();
+            alert(data.message);
+            loadProducts();
+        }
+
+        async function deleteBuyer(id) {
+            const response = await fetch(`http://localhost:5000/delete-buyer/${id}`, { method: "DELETE" });
+            const data = await response.json();
+            alert(data.message);
+            loadBuyers();
+        }
+
+        loadProducts();
+        loadBuyers();
+    </script>
+</body>
+</html>
